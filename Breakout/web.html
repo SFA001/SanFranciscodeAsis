@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Breakout</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    h1{
+      color: bisque;
+
+    }
+    h3{
+      color: beige;
+    }
+    p{
+      color: beige;
+    }
+    button{
+      border-radius:6px ;
+      color: rgb(223, 223, 223);
+      background-color: rgb(2, 128, 2);
+      width: 200px;
+      height: 70px;
+      font-size: 25px;
+      
+      
+    }
+    button:hover{
+      background-color: chartreuse;
+    }
+  </style>
+</head>
+<body>
+  <div id="menu">
+    <h1 id="gameTitle">BREAKOUT GAME</h1>
+    <h3 id="gameSubtitle">Presiona ENTER o haz clic en Jugar</h3>
+    <p id="manual">
+      Manual rápido: Usa las flechas <strong>IZQUIERDA</strong> y <strong>DERECHA</strong> para mover la paleta.<br>
+      Golpea la bola para romper todos los bloques y evita que caiga.
+    </p>
+    <button id="startBtn">Jugar</button>
+
+  </div>
+
+  <canvas id="gameCanvas" width="480" height="320"></canvas>
+
+  <script src="codee.js"></script>
+</body>
+</html>
