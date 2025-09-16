@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aguara'i</title>
+    <style>
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+    background: #584040; 
+    display: flex;
+    align-items: center;
+}
+
+.contenedor {
+    width: 920px;
+    height: 280px;
+    top: 55px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 40px;
+    background: linear-gradient(#b7d6c7, transparent) #ffe2d1;/*linear-gradient(#90ebff, white);*/
+    transition: background-color 1s linear;
+    overflow: hidden;
+}
+
+.mediodia {
+    background-color: #ffdcf3;
+}
+
+.tarde {
+    background-color: #ffadad;
+}
+
+.noche {
+    background-color: #161139;
+}
+
+.fox {
+    width: 84px;
+    height: 84px;
+
+    position: absolute;
+    bottom: 22px;
+    left: 42px;
+    z-index: 2;
+
+    background: url(fox.png) repeat-x 0px 0px;
+    background-size: 336px 84px;
+    background-position-x: 0px;
+
+}
+
+.fox-corriendo {
+    animation: animarFox 0.25s steps(2) infinite;
+}
+.fox-estrellado {
+    background-position-x: -252px;
+}
+
+.suelo {
+    width: 200%;
+    height: 42px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    background: url(suelo.png) repeat-x 0px 0px;
+    background-size: 50% 42px;
+
+}
+
+.cactus{
+    width: 46px;
+    height: 96px;
+
+    position: absolute;
+    bottom: 16px;
+    left: 600px;
+    z-index: 1;
+
+    background: url(cactus1.png) no-repeat;
+}
+.cactus2{
+    width: 98px;
+    height: 66px;
+
+    background: url(cactus2.png) no-repeat;
+}
+
+.nube{
+    width: 92px;
+    height: 26px;
+
+    position: absolute;
+    z-index: 0;
+
+    background: url(nube.png) no-repeat;
+    background-size: 92px 26px;
+}
+
+.score{
+    width: 100px;
+    height: 30px;
+
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    z-index: 10;
+
+    color: #d48871;
+    font-family: 'consolas';
+    font-size: 40px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.game-over{
+    display: none;
+    top: 365px;
+    position: absolute;
+    width: 100%;
+
+
+    text-align: center;
+    color: #d41c1c99;
+    font-size: 60px;
+    font-family: 'consolas';
+    font-weight: 700;
+}
+
+.titulo{
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-family: 'Cooper Black';
+    font-size: 26px;
+    z-index: 100;
+}
+
+@keyframes animarFox{
+    from{
+        background-position-x: -84px;
+    }
+    to{
+        background-position-x: -252px;
+    }
+}
+
+.boton-reiniciar {
+    display: none;
+    position: absolute;
+    top: 175px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 25px;
+    font-family: 'consolas';
+    background-color:#c97171;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.boton-reiniciar:hover {
+    background-color: #af3333;
+}
+
+img, .fox{
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: pixelated;
+}
+
+    </style>
+</head>
+<body>
+
+   
+    <div class="titulo"><h1>Aguara'i ñembosarái ✧°🦊 ⋆｡</h1></div>
+    <div class="contenedor">
+
+        <div class="suelo"></div>
+        
+        <div class="fox fox-corriendo"></div>
+
+        <div class="score">0</div>
+
+    </div>
+
+    <div class="game-over">GAME OVER</div>
+    <button class="boton-reiniciar" onclick="ReiniciarJuego()">Reiniciar</button>
+
+    <audio src="sound_salto.mp3" class="audio-salto"></audio>
+    <audio src="sound_gameOver.mp3" class="audio-gameOver"></audio>
+    
+
+<script>
+
+//****** Bucle del juego ********//
+
+var time = new Date();
+var deltaTime = 0;
+
+if(document.readyState === "complete" || document.readyState === "interactive"){
+    setTimeout(Init, 1);
+}else{
+    document.addEventListener("DOMContentLoaded", Init); 
+}
+
+function Init() {
+    time = new Date();
+    Start();
+    Loop();
+}
+
+function Loop() {
+    deltaTime = (new Date() - time) / 1000;
+    time = new Date();
+    Update();
+    requestAnimationFrame(Loop);
+}
+
+//****** Logica del juego ********//
+
+var sueloY = 22;      //Se declaran variables
+var velY = 0;
+var impulso = 900;
+var gravedad = 2500;
+
+var foxPosX = 42;
+var foxPosY = sueloY; 
+
+var sueloX = 0;
+var velEscenario = 1280/3;
+var gameVel = 1;
+var score = 0;
+
+var parado = false;
+var saltando = false;
+
+var tiempoHastaObstaculo = 2;
+var tiempoObstaculoMin = 0.7;
+var tiempoObstaculoMax = 1.8;
+var obstaculoPosY = 16;
+var obstaculos = [];
+
+var tiempoHastaNube = 0.5;
+var tiempoNubeMin = 0.7;
+var tiempoNubeMax = 2.7;
+var maxNubeY = 270;
+var minNubeY = 100;
+var nubes = [];
+var velNube = 0.5;
+
+var contenedor;
+var fox;
+var textoScore;
+var suelo;
+var gameOver;
+var audioSalto;
+var audioGameOver;
+
+function Start() {
+    gameOver = document.querySelector(".game-over"); //para dar inicio guarda algunos datos del css en variables
+    suelo = document.querySelector(".suelo");
+    contenedor = document.querySelector(".contenedor");
+    textoScore = document.querySelector(".score");
+    fox = document.querySelector(".fox");
+    audioSalto = document.querySelector(".audio-salto");
+    audioGameOver = document.querySelector(".audio-gameOver");
+    document.addEventListener("keydown", HandleKeyDown); // (agrega eventos para la accion ) para teclado
+    document.addEventListener("click", Saltar); // para mouse
+    document.addEventListener("touchstart", Saltar); // para pantallas táctiles
+}
+
+function Update() {  // llama a las funciones para iniciarlas.
+    if(parado) return;
+    
+    MoverFox();
+    MoverSuelo();
+    DecidirCrearObstaculos();
+    DecidirCrearNubes();
+    MoverObstaculos();
+    MoverNubes();
+    DetectarColision();
+
+    velY -= gravedad * deltaTime;
+}
+
+function HandleKeyDown(ev){ // hace que se pueda saltar con las teclas Espacio y flecha arriba.
+    if(ev.keyCode == 32 || ev.keyCode === 38){
+        Saltar();
+    }
+}
+
+function Saltar(){ // Hace que el zorro salte.
+    if(foxPosY === sueloY){
+        saltando = true;
+        velY = impulso;
+        fox.classList.remove("fox-corriendo");
+        audioSalto.currentTime = 0;
+        audioSalto.play();
+    }
+}
+
+function MoverFox() { //hace que el zorro se mueva
+    foxPosY += velY * deltaTime;
+    if(foxPosY < sueloY){
+        
+        TocarSuelo();
+    }
+    fox.style.bottom = foxPosY+"px";
+}
+
+function TocarSuelo() { // posiciona el zorro a la altura del suelo .
+    foxPosY = sueloY;
+    velY = 0;
+    if(saltando){
+        fox.classList.add("fox-corriendo");
+    }
+    saltando = false;
+}
+
+function MoverSuelo() { //Hace que el suelo se mueva para dar la ilusion de que el zorro se desplaza.
+    sueloX += CalcularDesplazamiento();
+    suelo.style.left = -(sueloX % contenedor.clientWidth) + "px";
+}
+
+function CalcularDesplazamiento() { // calcula la velocidad deldesplazamiento del escenario
+    return velEscenario * deltaTime * gameVel;
+}
+
+function Estrellarse() { // muestra el sprite del zorro estrellado.
+    fox.classList.remove("fox-corriendo");
+    fox.classList.add("fox-estrellado");
+    parado = true;
+}
+
+function DecidirCrearObstaculos() { // calcula cada cuanto tiempo aparecen los cactus/obstaculos.
+    tiempoHastaObstaculo -= deltaTime;
+    if(tiempoHastaObstaculo <= 0) {
+        CrearObstaculo();
+    }
+}
+
+function DecidirCrearNubes() {  // calcula cada cuanto tiempo aparecen las nubes.
+    tiempoHastaNube -= deltaTime;
+    if(tiempoHastaNube <= 0) {
+        CrearNube();
+    }
+}
+
+function CrearObstaculo() {  // crea los cactus/obstaculos para que aparescan.
+    var obstaculo = document.createElement("div");
+    contenedor.appendChild(obstaculo);
+    obstaculo.classList.add("cactus");
+    if(Math.random() > 0.5) obstaculo.classList.add("cactus2");
+    obstaculo.posX = contenedor.clientWidth;
+    obstaculo.style.left = contenedor.clientWidth+"px";
+
+    obstaculos.push(obstaculo);
+    tiempoHastaObstaculo = tiempoObstaculoMin + Math.random() * (tiempoObstaculoMax-tiempoObstaculoMin) / gameVel;
+}
+
+function CrearNube() {  // crea las nubes para que aparescan.
+    var nube = document.createElement("div");
+    contenedor.appendChild(nube);
+    nube.classList.add("nube");
+    nube.posX = contenedor.clientWidth;
+    nube.style.left = contenedor.clientWidth+"px";
+    nube.style.bottom = minNubeY + Math.random() * (maxNubeY-minNubeY)+"px";
+    
+    nubes.push(nube);
+    tiempoHastaNube = tiempoNubeMin + Math.random() * (tiempoNubeMax-tiempoNubeMin) / gameVel;
+}
+
+function MoverObstaculos() { // mueve los obstaculos para que vayan acorde con el suelo y el zorrito.
+    for (var i = obstaculos.length - 1; i >= 0; i--) {
+        if(obstaculos[i].posX < -obstaculos[i].clientWidth) {
+            obstaculos[i].parentNode.removeChild(obstaculos[i]);
+            obstaculos.splice(i, 1);
+            GanarPuntos();
+        }else{
+            obstaculos[i].posX -= CalcularDesplazamiento();
+            obstaculos[i].style.left = obstaculos[i].posX+"px";
+        }
+    }
+}
+
+function MoverNubes() { // mueve las nubes para que vayan acorde con el escenario.
+    for (var i = nubes.length - 1; i >= 0; i--) {
+        if(nubes[i].posX < -nubes[i].clientWidth) {
+            nubes[i].parentNode.removeChild(nubes[i]);
+            nubes.splice(i, 1);
+        }else{
+            nubes[i].posX -= CalcularDesplazamiento() * velNube;
+            nubes[i].style.left = nubes[i].posX+"px";
+        }
+    }
+}
+
+function GanarPuntos(){ //El puntaje va en aumento a medida que se esquivan los obstaculos/cactus y cambia el escenario.
+    score++;
+    textoScore.innerText = score;
+    if(score % 10 == 0){
+        gameVel += 0.2;
+        contenedor.classList.add("mediodia");
+        if(score == 40) {
+            contenedor.classList.add("tarde");
+        }else if(score == 60) {
+            contenedor.classList.add("noche");
+        }
+    }    
+    suelo.style.animationDuration = (3/gameVel)+"s";
+}
+
+function GameOver() { // al chocar con un obstaculo, aparece el sprite estrellado, las palabras "Game over", suena el efecto de sonido y el boton para reiniciar el juego.
+    Estrellarse();
+    gameOver.style.display = "block";
+    audioGameOver.play();
+    document.querySelector(".boton-reiniciar").style.display = "block";
+}
+
+function DetectarColision() { // detecta que el zorrito chocó con un obstaculo.
+    for (var i = 0; i < obstaculos.length; i++) {
+        if(obstaculos[i].posX > foxPosX + fox.clientWidth) {
+            //EVADE
+            break; //al estar en orden, no puede chocar con más
+        }else{
+            if(IsCollision(fox, obstaculos[i], 10, 30, 15, 20)) {
+                GameOver();
+            }
+        }
+    }
+}
+
+function IsCollision(a, b, paddingTop, paddingRight, paddingBottom, paddingLeft) {
+    var aRect = a.getBoundingClientRect();
+    var bRect = b.getBoundingClientRect();
+
+    return !(
+        ((aRect.top + aRect.height - paddingBottom) < (bRect.top)) ||
+        (aRect.top + paddingTop > (bRect.top + bRect.height)) ||
+        ((aRect.left + aRect.width - paddingRight) < bRect.left) ||
+        (aRect.left + paddingLeft > (bRect.left + bRect.width))
+    );
+}
+
+function ReiniciarJuego() { // reinicia el juego recargando la página al presionar el botón.
+    location.reload();
+}
+
+
+
+</script>
+</body>
+</html>

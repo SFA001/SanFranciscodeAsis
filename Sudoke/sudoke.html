@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sudoku — Colegio</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <div class="contenedor">
+    <header class="top">
+      <img id="insignia" src="insignia.png" alt="Insignia"
+           onerror="this.onerror=null; this.src='WhatsApp Image 2025-09-11 at 14.11.54.jpeg';" />
+      <div>
+        <h1>Sudoku — Colegio</h1>
+        <div class="leyenda">Selecciona una casilla con número para destacar repeticiones.</div>
+      </div>
+    </header>
+
+    <div class="controles">
+      <select id="dificultad">
+        <option value="facil">Fácil</option>
+        <option value="medio">Medio</option>
+        <option value="dificil">Difícil</option>
+      </select>
+      <button id="nuevoJuego">Nueva Partida</button>
+      <button id="verificar">Verificar</button>
+      <button id="toggleHileras" class="secondary">Ver hileras: ON</button>
+      <div class="info">
+        <span id="temporizador">00:00</span>
+      </div>
+    </div>
+
+    <div id="tablero" class="tablero"></div>
+    <!-- Mensaje de error -->
+    <div id="mensaje-error"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

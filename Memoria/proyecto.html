@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Memoria</title>
+    <link rel="stylesheet" href="Juego.css">
+</head>
+<body>
+    <h1 class="title">Juego de Memoria</h1>
+
+    <div class="toolbar">
+        <div class="stats">
+            <span class="pill">Movs: <span id="moves">0</span></span>
+            <span class="pill">Aciertos: <span id="hits">0</span></span>
+        </div>
+        <div class="actions">
+            <span class="pill">Nivel: <span id="level">1</span></span>
+            <span class="pill">Tiempo: <span id="time">00:00</span></span>
+            <span class="pill">Espiar: <span id="peeksLeft">0</span></span>
+        </div>
+        <button class="btn" id="new">Nuevo Juego</button>
+        <button class="btn" id="peek">Espiar</button>
+        <button class="btn" id="sound">🔊 Sonido</button>
+    </div>
+
+    <div id="status"></div>
+
+    <div class="grid" id="grid">
+        </div>
+
+    <div class="foot">
+        <br><br>
+        <p>Juego de Memoria</p>
+    </div>
+    <script src="Juego.js"></script>
+</body>
+</html>

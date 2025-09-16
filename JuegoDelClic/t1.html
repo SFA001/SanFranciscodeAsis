@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juego de Clic - Niveles</title>
+<link rel="stylesheet" href="t1.css">
+</head>
+<body>
+
+<!-- ======================
+     MANUAL DE USUARIO
+     ====================== -->
+<div id="manual">
+  <h2>Manual de Usuario</h2>
+  <ul>
+    <li>El objetivo es hacer clic sobre la figura (íconos de computadora) para ganar puntos.</li>
+    <li>Cada clic mueve la figura a un lugar aleatorio.</li>
+    <li>El juego dura 30 segundos.</li>
+    <li>Resultados según puntaje:
+      <ul>
+        <li>40 o más puntos: ¡Increíble!</li>
+        <li>10-39 puntos: ¡Bien!</li>
+        <li>Menos de 10 puntos: Practica más.</li>
+      </ul>
+    </li>
+    <li>Selecciona el nivel antes de comenzar:</li>
+  </ul>
+
+  <!-- Selector de nivel -->
+  <label for="levelSelect">Nivel:</label>
+  <select id="levelSelect">
+    <option value="1">Nivel 1 - Normal</option>
+    <option value="2">Nivel 2 - Área más grande</option>
+    <option value="3">Nivel 3 - Área gigante + figuras desaparecen</option>
+  </select>
+
+  <br>
+  <button id="startBtn">Comenzar Juego</button>
+</div>
+
+<!-- Barra superior con tiempo y puntaje -->
+<div id="topBar">
+  <div>Tiempo: <span id="timer">30</span>s</div>
+  <div>Puntos: <span id="score">0</span></div>
+</div>
+
+<!-- Área del juego -->
+<div id="gameArea">
+  <img id="figure" src="" alt="figura">
+</div>
+
+<script src="t1.js"></script>
+
+</body>
+</html>

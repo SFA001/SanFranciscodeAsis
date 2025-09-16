@@ -1,0 +1,78 @@
+/* ============================
+     ESTILOS GENERALES DE LA PÁGINA
+     ============================ */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; 
+    background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+}
+
+  /* Barra superior donde se muestra tiempo y puntaje */
+#topBar {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #009688;
+    color: white;
+    font-size: 20px;
+    display: none; /* Oculta hasta que empiece el juego */
+}
+
+  /* Área del juego que cambia de tamaño según nivel */
+#gameArea {
+    position: relative;
+    width: 100%; 
+    background-color: #e0f7fa;
+    overflow: hidden;
+    display: none; /* Oculto hasta que inicie el juego */
+}
+
+  /* Figura clickeable (será un ícono en lugar de un círculo) */
+#figure {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+
+  /* Manual de usuario con instrucciones */
+#manual {
+    background-color: #ffffffcc;
+    border: 2px solid #009688;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px auto;
+    width: 90%;
+    max-width: 600px;
+    text-align: left;
+}
+
+#manual h2 {
+    color: #009688;
+}
+
+#manual ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+#startBtn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #009688;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#startBtn:hover {
+    background-color: #00796b;
+}

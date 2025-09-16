@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>3 BTI's game</title>
+  <link rel="stylesheet" href="limpia.css">
+</head>
+<body>
+  
+  <h1>Recoge la Basura</h1>
+
+  <!-- Estadisticas del usuario -->
+  <div id="statsPanel">
+    <p id="puntaje">Basuras recogidas: 0</p>
+    <p id="fallos">Basuras perdidas: 0 / 5</p>
+    <p id="tiempo">Tiempo: 0s</p>
+    <p id="record">Record: 0</p> 
+  </div>
+  <!-- Creacion del canvas en donde se desarrollara todo el juego -->
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- Pantalla final que sucede cuando el usuario pierde -->
+  <div id="mensajeFinal"> <!-- Este div se hace para oscurecer un poco toda la pantalla -->
+    <div id="overlay"> <!-- Este div se realiza para resaltar las estadisticas finales -->
+      <h2>¡Perdiste!</h2>
+      <p id="detalleFinal"></p>
+      <p id="recordFinal"></p> 
+      <button onclick="reiniciarJuego()">Volver a Jugar</button>
+    </div>
+  </div>
+
+  <script src="limpia.js"></script>
+</body>
+</html>

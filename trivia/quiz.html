@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFA Trivia</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+  <audio id="musica juego">
+        <source src="quiz-countdown-194417.mp3" type="audio/wav">
+    </audio>
+    
+
+    
+    <div class="container">
+        <div class="header">
+            <h1>SFA Trivia</h1>
+            <p class="subtitle">Pon a prueba tus conocimientos</p>
+        </div>
+        
+        <!-- Pantalla de inicio -->
+        <div id="start-screen" class="screen">
+            <div class="selection-section">
+                <h2>Selecciona una categoría</h2>
+                <div class="btn-container">
+                    <button class="category-btn" data-category="religion">
+                        <span class="category-icon">⛪</span>Religión
+                    </button>
+                    <button class="category-btn" data-category="general">
+                        <span class="category-icon">🌎</span>Cultura General
+                    </button>
+                    <button class="category-btn" data-category="entertainment">
+                        <span class="category-icon">🎬</span>Entretenimiento
+                    </button>
+                    <button class="category-btn" data-category="computing">
+                        <span class="category-icon">💻</span>Informática
+                    </button>
+                </div>
+            </div>
+            
+            <div class="selection-section">
+                <h2>Selecciona la dificultad</h2>
+                <div class="btn-container">
+                    <button class="difficulty-btn" id="easy-btn" data-difficulty="easy">Fácil</button>
+                    <button class="difficulty-btn" id="medium-btn" data-difficulty="medium">Intermedio</button>
+                    <button class="difficulty-btn" id="hard-btn" data-difficulty="hard">Difícil</button>
+                </div>
+            </div>
+            
+            <button id="start-btn" disabled>Comenzar Juego</button>
+        </div>
+        
+        <!-- Pantalla de juego -->
+        <div id="game-screen" class="screen">
+            <div class="score">Puntuación: <span id="score-value">0</span></div>
+            
+            <div class="progress" id="progress-container">
+                <!-- Los indicadores de progreso se generarán dinámicamente -->
+            </div>
+            
+            <div class="question-container">
+                <div class="question" id="question-text">¿Pregunta?</div>
+
+                 <button id="next-btn">Siguiente Pregunta</button>
+                
+                <div id="feedback-container"></div>
+                
+                <div class="options-container" id="options-container">
+                    <!-- Las opciones se generarán dinámicamente -->
+                </div>
+            </div>
+            
+           
+        </div>
+        
+        
+        <!-- Pantalla de resultados -->
+        <div id="result-screen" class="screen result-screen">
+            <div class="result-message">¡Juego Terminado!</div>
+            <div class="final-score">Puntuación final: <span id="final-score-value">0</span></div>
+            <button id="play-again-btn">Jugar de Nuevo</button>
+        </div>
+       
+        
+    </div>
+<script src="quiz.js"></script>
+
+</body>
+</html>

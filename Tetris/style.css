@@ -1,0 +1,41 @@
+body{
+    display: flex; /* Usa flexbox para organizar los elementos en línea o columna de forma flexible */
+    justify-content: center; /* Centra los elementos horizontalmente en la pantalla */
+    align-items: center; /* Centra los elementos verticalmente en la pantalla */
+    height: 100vh; /* Hace que el cuerpo ocupe el 100% de la altura de la ventana */
+    background: linear-gradient(140deg, #1f8362, #008d92, #4631b9, #228a73);
+    margin: 0; /* Quita los márgenes predeterminados del navegador */
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+}
+
+.contenedor{
+    display: flex; /* Usa flexbox dentro del contenedor para organizar elementos */
+    align-items: center; /* Alinea los elementos del contenedor verticalmente */
+}
+
+canvas {
+    border: 2px solid #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+
+#info {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    animation: aparecer 1s ease-out;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+p{
+    margin: 0; /* Quita el espacio extra por defecto arriba y abajo de los párrafos */
+    font-size: 1.2rem; /* Ajusta el tamaño del texto a un poco más grande que el estándar */
+    color: #fff;
+}

@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap'); /* Importa la familia Poppins desde Google Fonts */
+
+:root { /* Inicio: variables CSS globales (colores y constantes) */
+  --accent:#2f3a8f; /* Color principal/acento usado en botones y títulos */
+  --cell-border:#bdbdbd; /* Color por defecto del borde de cada celda */
+  --cell-border-strong:#222; /* Color de borde "fuerte" para separar bloques 3x3 */
+  --match-bg:#6b6b6b; /* Color de fondo cuando hay coincidencia (match) */
+  --match-num:#ffffff; /* Color del número cuando está en estado "match" */
+  --rowcol-highlight:#e6e6e6; /* Fondo para resaltar fila o columna */
+  --white:#ffffff; /* Blanco reutilizable como variable */
+} /* Fin de :root */
+
+html,body { /* Aplica reglas base tanto al html como al body */
+  height:100%; /* Hace que el alto sea 100% del viewport */
+  margin:0; /* Elimina margin por defecto del navegador */
+  font-family:'Poppins',sans-serif; /* Fuente principal de la página */
+  background: linear-gradient(135deg,#cfe9ff 0%, #f7f7f7 100%); /* Fondo degradado de la página */
+  display:flex; /* Usa flexbox para centrar contenido */
+  align-items:center; /* Centra verticalmente el contenido */
+  justify-content:center; /* Centra horizontalmente el contenido */
+  padding:20px; /* Espacio alrededor del contenido para pantallas pequeñas */
+} /* Fin de html,body */
+
+.contenedor { /* Caja principal que contiene todo el UI del Sudoku */
+  width:100%; /* Ancho responsivo (100% del contenedor padre) */
+  max-width:860px; /* Ancho máximo para pantallas grandes */
+  background:rgba(255,255,255,0.95); /* Fondo blanco semitransparente */
+  border-radius:12px; /* Bordes redondeados en la caja */
+  box-shadow:0 8px 30px rgba(0,0,0,0.15); /* Sombra suave alrededor */
+  padding:18px; /* Espaciado interno */
+} /* Fin de .contenedor */
+
+header.top { display:flex; align-items:center; gap:14px; margin-bottom:12px; } /* Header con layout flex, espacio entre elementos y margen inferior */
+#insignia { width:84px; height:84px; object-fit:contain; border-radius:6px; background:white; } /* Imagen del logo: tamaño fijo, contenido ajustado y fondo blanco */
+h1 { font-size:1.9rem; margin:0; color:var(--accent); } /* Título principal: tamaño, sin margen y color acento */
+.leyenda { font-size:0.9rem; color:#444; margin-top:8px; } /* Texto explicativo pequeño debajo del título */
+
+.controles { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:14px; } /* Contenedor de controles: flex y wrap para responsive */
+button, select { /* Estilos compartidos para botones y select */
+  padding:9px 12px; /* Relleno interno para clic cómodo */
+  border-radius:8px; /* Bordes redondeados en controles */
+  border:none; /* Sin borde por defecto */
+  background:var(--accent); /* Fondo usando color acento */
+  color:white; /* Texto en blanco */
+  font-weight:600; /* Texto seminegrita */
+  cursor:pointer; /* Cursor de mano para indicar clicable */
+} /* Fin de estilos compartidos para button y select */
+
+button.secondary { background:#6c6f86; } /* Variante secundaria de botón con otro color de fondo */
+.info { margin-left:auto; display:flex; gap:10px; align-items:center; color:#333; font-weight:600; } /* Caja info que se alinea a la derecha con elementos centrados */
+
+.tablero { /* Contenedor del tablero de 9x9 */
+  display:grid; /* Usa grid para posicionar las 81 celdas */
+  grid-template-columns:repeat(9,54px); /* 9 columnas de 54px cada una */
+  grid-template-rows:repeat(9,54px); /* 9 filas de 54px cada una */
+  gap:0; /* Sin espacio entre celdas del grid */
+  width:486px; /* Ancho total del tablero (9 * 54) */
+  margin:12px auto; /* Centrado horizontal y margen vertical */
+  background:var(--white); /* Fondo blanco para la rejilla */
+  padding:6px; /* Pequeño padding alrededor del grid */
+  box-sizing:content-box; /* El padding no afecta al tamaño total calculado anteriormente */
+} /* Fin de .tablero */
+
+.celda { /* Estilo base para cada celda del Sudoku */
+  width:54px; /* Ancho fijo de celda */
+  height:54px; /* Alto fijo de celda */
+  box-sizing:border-box; /* El borde y padding se cuentan dentro de ancho/alto */
+  border:1px solid var(--cell-border); /* Borde tenue alrededor de cada celda */
+  border-radius:0; /* Sin redondeo en cada celda individual */
+  font-size:20px; /* Tamaño de fuente para los números */
+  text-align:center; /* Centrar texto horizontalmente */
+  background:var(--white); /* Fondo blanco por defecto */
+  color:#111; /* Color del texto */
+  line-height:54px; /* Alinear verticalmente el número dentro de la celda */
+  padding:0; /* Sin padding extra */
+  appearance:none; /* Quita estilos de apariencia por defecto en algunos navegadores */
+  -webkit-appearance:none; /* Prefijo Safari/Chrome */
+  -moz-appearance:none; /* Prefijo Firefox */
+} /* Fin de .celda */
+
+.celda[readonly] { cursor:pointer; background:#f5f7f9; font-weight:700; color:#0d1a2b; } /* Estilo para celdas fijas: fondo distinto, texto más grueso y cursor pointer */
+
+.error { background:#ffdddd !important; } /* Clase para marcar error: fondo rojizo (importante para sobrescribir) */
+.match { background:var(--match-bg) !important; color:var(--match-num) !important; font-weight:700; } /* Clase para coincidencias: fondo y color de número fuertes */
+.rowcol-highlight { background:var(--rowcol-highlight) !important; } /* Resalta fila/columna cuando está activado */
+
+.border-left-strong { border-left:3px solid var(--cell-border-strong); } /* Borde izquierdo más grueso para delimitar bloques 3x3 */
+.border-right-strong { border-right:3px solid var(--cell-border-strong); } /* Borde derecho más grueso para delimitar bloques 3x3 */
+.border-top-strong { border-top:3px solid var(--cell-border-strong); } /* Borde superior más grueso para delimitar bloques 3x3 */
+.border-bottom-strong { border-bottom:3px solid var(--cell-border-strong); } /* Borde inferior más grueso para delimitar bloques 3x3 */
+
+#mensaje-error { /* Estilo del contenedor de mensajes de error visibles */
+  margin-top: 10px; /* Separación superior respecto al tablero */
+  text-align: center; /* Centrar texto dentro del mensaje */
+  font-weight: 600; /* Texto semi-negrita */
+  color: #fff; /* Color del texto (blanco) */
+  background: #e74c3c; /* Fondo rojo para llamar la atención */
+  padding: 8px 12px; /* Relleno interior */
+  border-radius: 6px; /* Bordes redondeados */
+  display: none; /* Oculto por defecto; mostrar desde JS cuando haga falta */
+} /* Fin de #mensaje-error */
+
+@media (max-width:540px){ /* Media query para pantallas pequeñas (móviles) */
+  .tablero { transform:scale(0.85); transform-origin:center; } /* Escala el tablero para que quepa mejor */
+  #insignia { width:60px; height:60px; } /* Reduce tamaño de la insignia en móviles */
+} /* Fin del media query */

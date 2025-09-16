@@ -1,0 +1,201 @@
+/* styles.css - diseño claro y llamativo */
+
+/* Tipografía y fondo */
+:root{
+  --bg1: #a99aff;
+  --bg2: #2e2d74;
+  --card: rgba(255,255,255,0.12);
+  --accent: #ffdd57;
+  --accent-2: #7ef9a3;
+  --text: #ffffff;
+}
+
+*{box-sizing: border-box}
+body{
+  margin:0;
+  font-family: "Inter", system-ui, Arial, sans-serif;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  color: var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+/* Contenedor central */
+.container{
+  width:100%;
+  max-width:760px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border-radius:14px;
+  padding:18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  
+}
+
+/* Título */
+h1{
+  margin:6px 0 14px;
+  text-align:center;
+  font-size:2rem;
+  letter-spacing:0.6px;
+}
+
+/* Controles */
+.controls{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+  padding:8px;
+}
+
+.names label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:0.95rem;
+}
+
+.names input{
+  padding:6px 10px;
+  border-radius:8px;
+  border:none;
+  outline:none;
+  min-width:120px;
+}
+
+/* Botones */
+.buttons{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+button{
+  background: #ffffff;
+  color: #222;
+  padding:8px 12px;
+  border-radius:10px;
+  border:none;
+  font-weight:600;
+  cursor:pointer;
+  transition: transform .12s ease;
+}
+
+button:hover{ transform: translateY(-3px); }
+
+/* Sonido */
+.soundToggleLabel{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:0.9rem;
+}
+
+/* Score */
+.scoreboard{
+  display:flex;
+  gap:18px;
+  margin-top:8px;
+}
+
+.score{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  background: var(--card);
+  padding:6px 10px;
+  border-radius:10px;
+}
+
+/* Tablero */
+.board{
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:12px;
+  margin-top:16px;
+  padding:12px;
+  pointer-events: none; /* deshabilitado hasta iniciar */
+  
+}
+
+/* Celda */
+.cell{
+  background: rgba(255,255,255,0.08);
+  min-height:100px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:44px;
+  font-weight:800;
+  border-radius:12px;
+  cursor:pointer;
+  user-select:none;
+  transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+}
+
+.cell:hover{ transform: scale(1.03); }
+
+/* Diferenciar X y O */
+.cell.x{ color: #3311ca; }   /* X en rojo */
+.cell.o{ color: #24c3e3; }   /* O en azul */
+
+/* Estado */
+.status{
+  margin-top:12px;
+  text-align:center;
+  font-weight:700;
+}
+
+/* Overlay mensaje (ganador/empate) */
+.overlay{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,0,0,0.45);
+  z-index:50;
+}
+.overlay.hidden{ display:none; }
+.overlay-content{
+  background: linear-gradient(180deg,#ffffff,#ffd6a5);
+  color:#111;
+  padding:20px 22px;
+  border-radius:12px;
+  text-align:center;
+  min-width:260px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+.overlay-content button{
+  margin-top:12px;
+}
+
+/* --- Efecto serpentina (animación) --- */
+@keyframes snake {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Clase que se aplica a las celdas ganadoras */
+.cell.win {
+  color: #111 !important;
+  transform: scale(1.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  /* gradiente animado (serpentina) */
+  background: linear-gradient(90deg, #fff, #ffdd57, #7ef9a3, #fff);
+  background-size: 300% 100%;
+  animation: snake 1s linear infinite;
+}
+
+/* Pequeña responsividad */
+@media (max-width:520px){
+  .cell{ min-height:72px; font-size:30px; }
+  .names input{ min-width:90px; }
+}
