@@ -9,19 +9,20 @@
   
   <h1>Recoge la Basura</h1>
 
-  <!-- Estadisticas del usuario -->
+  <!-- Estadísticas del usuario -->
   <div id="statsPanel">
     <p id="puntaje">Basuras recogidas: 0</p>
     <p id="fallos">Basuras perdidas: 0 / 5</p>
     <p id="tiempo">Tiempo: 0s</p>
     <p id="record">Record: 0</p> 
   </div>
-  <!-- Creacion del canvas en donde se desarrollara todo el juego -->
+
+  <!-- Canvas del juego -->
   <canvas id="gameCanvas"></canvas>
 
-  <!-- Pantalla final que sucede cuando el usuario pierde -->
-  <div id="mensajeFinal"> <!-- Este div se hace para oscurecer un poco toda la pantalla -->
-    <div id="overlay"> <!-- Este div se realiza para resaltar las estadisticas finales -->
+  <!-- Pantalla final -->
+  <div id="mensajeFinal">
+    <div id="overlay">
       <h2>¡Perdiste!</h2>
       <p id="detalleFinal"></p>
       <p id="recordFinal"></p> 
@@ -32,3 +33,4 @@
   <script src="limpia.js"></script>
 </body>
 </html>
+
