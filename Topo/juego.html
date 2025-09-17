@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golpea al Topo</title>
+    <link rel="stylesheet" href="adri.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="contenedor-juego">
+        <h1 class="titulo">¡Golpea al Topo!💥</h1>
+        <div class="puntuacion-container">
+            🏆Puntuación: <span id="puntuacion">0</span>
+        </div>
+        <div class="cronometro-container">
+            ⏱️Tiempo restante: <span id="cronometro">20</span>
+        </div>
+        <div class="tablero">
+            <div class="agujero">
+                <div class="topo"></div>
+            </div>
+            <div class="agujero">
+                <div class="topo"></div>
+            </div>
+            <div class="agujero">
+                <div class="topo"></div>
+            </div>
+            <div class="agujero">
+                <div class="topo"></div>
+            </div>
+            <div class="agujero">
+                <div class="topo"></div>
+            </div>
+            <div class="agujero">
+                <div class="topo"></div>
+            </div>
+            <div class="agujero">
+                <div class="topo"></div>
+            </div>
+            <div class="agujero">
+                <div class="topo"></div>
+            </div>
+            <div class="agujero">
+                <div class="topo"></div>
+            </div>
+        </div>
+        
+        <div id="manual-juego" class="modal">
+            <div class="contenido-modal">
+                <h2>¿Cómo jugar?</h2>
+                <p>¡Prepárate para golpear!🔨</p>
+                <ol>
+                    <li>El objetivo es golpear la mayor cantidad de topos posibles.</li><br>
+                    <li>Los topos aparecerán aleatoriamente por los agujeros.</li><br>
+                    <li>Usa el cursor para hacer clic sobre los topos que veas.</li><br>
+                    <li>¡Cada topo que golpees sumará un punto a tu marcador!</li><br>
+                    <li>Tienes 20 segundos para conseguir la puntuación más alta.</li>
+                </ol>
+                <button id="cerrar-manual">¡Entendido!</button>
+            </div>
+        </div>
+        
+        <div id="modal-fin-juego" class="modal">
+            <div class="contenido-modal">
+                <h2>¡GAME OVER!</h2>
+                <p>Tu puntuación final es: <span id="puntuacion-final">0</span></p>
+                <button id="reiniciar-juego">Jugar de Nuevo</button>
+            </div>
+        </div>
+        
+        <button id="boton-inicio">Iniciar Juego</button>
+
+    </div>
+
+    <audio id="musica-juego" loop>
+        <source src="battle-mario-kart.mp3" type="audio/mp3">
+    </audio>
+    <audio id="sonido-golpe">
+        <source src="golpe.wav" type="audio/mp3">
+    </audio>
+    <audio id="musica-fin-juego">
+        <source src="kart1-mario-kart.mp3" type="audio/mp3">
+    </audio>
+    <audio id="sonido-boton">
+        <source src="mario-coin.mp3" type="audio/wav">
+    </audio>
+    
+    <script src="Topo.js"></script>
+    
+</body>
+</html>
